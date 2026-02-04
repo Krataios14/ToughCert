@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+*.dist-info/
+.eggs/
+.build/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.cache/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Data / outputs (remove these if you want them versioned)
+data/
+runs/
+reports/figures/
+predictions.csv
+*.pt
+*.pth
+*.ckpt
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/

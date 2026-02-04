@@ -1,0 +1,16 @@
+# Core
+numpy
+pandas
+scikit-learn
+pyyaml
+joblib
+
+# Modeling
+torch
+
+# Visualization
+matplotlib
+seaborn
+
+# Testing
+pytest

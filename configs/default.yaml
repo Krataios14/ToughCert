@@ -1,0 +1,72 @@
+seed: 42
+
+data:
+  train_csv: data/processed_train.csv
+  target: fracture_toughness_mpa_m0_5
+  schema_json: data/schema.json
+  numerical_features: []
+  categorical_features: []
+  target_transform: log1p
+  target_standardize: true
+  group_columns:
+    - processing_history
+    - phase
+    - material_condition
+  min_non_null_fraction: 0.05
+  min_non_zero_fraction: 0.02
+  min_known_numeric: 8
+  segment_columns:
+    - phase
+    - material_condition
+  min_segment_rows: 30
+  val_split: 0.15
+  num_workers: 0
+
+model:
+  type: auto
+  # Transformer settings (used if type: transformer)
+  d_model: 128
+  n_heads: 4
+  n_layers: 4
+  dropout: 0.15
+  mlp_hidden: 256
+  mlp_layers: 2
+  # GBDT settings (used if type: gbdt)
+  gbdt:
+    learning_rate: 0.02
+    max_depth: 3
+    max_leaf_nodes: 127
+    max_bins: 255
+    min_samples_leaf: 20
+    l2_regularization: 0.1
+    max_iter: 500
+    early_stopping: true
+  # Auto model selection (used if type: auto)
+  auto:
+    candidates:
+      - gbdt
+      - extra_trees
+      - random_forest
+      - ridge
+
+train:
+  batch_size: 256
+  max_epochs: 200
+  lr: 0.001
+  weight_decay: 0.01
+  warmup_epochs: 5
+  patience: 20
+  grad_clip: 1.0
+  huber_delta: 1.0
+  mixed_precision: true
+  use_swa: true
+  swa_start: 0.75
+  mixup_alpha: 0.1
+
+outputs:
+  run_dir: runs
+  best_model: best_model.joblib
+  scaler: scaler.joblib
+  encoder: encoder.joblib
+  metrics: metrics.json
+  figures_dir: reports/figures
