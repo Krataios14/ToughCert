@@ -54,27 +54,57 @@ indices H/E and H^3/E^2. These help most exactly where data is thin,
 and they make the applicability domain interpretable in physical
 coordinates.
 
+## The data
+
+The bundled dataset has 162 records (147 training, 15 held-out) built
+from two committed sources by `python -m src.ingest_fan2023`:
+
+- the full fracture toughness sheet of Fan et al., "Dataset for
+  Fracture and Impact Toughness of High-Entropy Alloys", Scientific
+  Data 10 (2023), fetched from Materials Cloud
+  (doi:10.24435/materialscloud:d6-pf) and stored at
+  `assets/fan2023_hea_toughness.xlsx`. All 148 records are used: 131
+  K_IC, 17 K_Q, including the refractory NbTaTiZr-Mo and NbTaTiV
+  series tested between 77 K and 226 K that the earlier CSV dropped.
+  The measure type (K_IC, K_Q, or J-converted) is kept as a model
+  feature, and the reported measurement uncertainty is carried as
+  metadata.
+- `assets/manual_records.csv`: 14 hand-collected records (steels from
+  Ritchie 1976 and supplier datasheets, cryogenic CoCrNi and
+  CoCrFeMnNi, WC-Co hardmetals) that are not in the source dataset.
+
+The unseen split is pinned by `assets/unseen_keys.json`, so dataset
+revisions stay comparable. J values convert to K via
+K = sqrt(J*E/(1-nu^2)) with nu = 0.3, only when the record reports a
+modulus.
+
 ## How the numbers hold up
 
-Measured on the bundled dataset (131 specimens from 90
-publication/composition groups, K_IC from 0.2 to 459 MPa m^0.5, test
-temperatures from 20 K to 1298 K), with whole groups held out so the
-model is always scored on material systems it has never seen:
+Measured on the bundled dataset (147 training specimens from 90
+publication/composition groups, toughness from 0.2 to 459 MPa m^0.5,
+test temperatures from 20 K to 1298 K), with whole groups held out so
+the model is always scored on material systems it has never seen:
 
 | Quantity | Value |
 | --- | --- |
-| 90% interval, empirical coverage on held-out groups | 91.6% (guarantee: >= 80%) |
-| 95% interval, empirical coverage on held-out groups | 95.1% (guarantee: >= 90%) |
-| Point MAE on held-out groups | 25.2 MPa m^0.5 |
-| R2 on held-out groups | 0.52 |
-| Bundled unseen set (15 specimens), measured value inside 90% bounds | 13 of 15 |
+| 90% interval, empirical coverage on held-out groups | 95.3% (guarantee: >= 80%) |
+| 95% interval, empirical coverage on held-out groups | 98.4% (guarantee: >= 90%) |
+| Point MAE on held-out groups | 35.3 MPa m^0.5 |
+| R2 on held-out groups | 0.27 |
+| Bundled unseen set (15 specimens), measured value inside 90% bounds | 11 of 15 |
 
-The intervals are wide. That is the honest output of 131 noisy
-literature points spanning three orders of magnitude, and it is exactly
-the information a test-planning decision needs. Every qualification run
-recomputes this table for the current data and writes it into the model
-card, so the calibration claim is always backed by the artifact in
-front of you, not by this README.
+Two things deserve a plain statement. First, point accuracy got worse
+when the refractory K_Q series was added, because held-out-group
+evaluation now includes whole alloy families the model has to
+extrapolate to; the conformal intervals widened to compensate, which
+is the design working as intended. Second, the four unseen misses are
+all nominally identical Al20-Co20-Cr20-Fe20-Ni20 specimens whose
+measured values span 1.0 to 10.6 MPa m^0.5 across different labs and
+processing routes. That spread is in the source literature itself, and
+no composition-based model can resolve it. Every qualification run
+recomputes this table for the current data and writes it into the
+model card, so the calibration claim is always backed by the artifact
+in front of you, not by this README.
 
 ## Quickstart
 
@@ -140,12 +170,17 @@ the rows the advise mode will usually tell you to test first.
 
 ## Limitations, stated plainly
 
-- 131 training points. The model interpolates a sparse literature
+- 147 training points. The model interpolates a sparse literature
   corpus; it does not know mechanism. The conformal machinery is there
   precisely because the point model is weak.
-- The data mixes K_IC, K_Q and other toughness measures as reported by
-  the source papers, in MPa m^0.5, without re-validating specimen size
-  criteria.
+- The measure type (K_IC vs K_Q vs J-converted) is a model feature,
+  but specimen size validity criteria are taken as reported by the
+  source papers, not re-checked. J to K conversion assumes plane
+  strain and nu = 0.3.
+- Nominally identical compositions from different labs can differ by
+  10x in measured toughness. The model sees composition, condition,
+  phase and processing text, and cannot resolve what those columns do
+  not encode.
 - Miedema enthalpies are model estimates, rounded, and pairs involving
   N, O, S and Pb are excluded (the coverage fraction is a feature, so
   the model can discount those rows).
@@ -159,9 +194,10 @@ the rows the advise mode will usually tell you to test first.
 ## Repository layout
 
 ```
-assets/            bundled literature dataset (with citations)
+assets/            source dataset (xlsx), manual records, combined CSVs
 configs/           YAML configs
 examples/          committed example outputs, incl. the HTML report
+src/ingest_fan2023.py  rebuilds the combined CSVs from the sources
 src/physics.py     composition and mechanics descriptors
 src/conformal.py   group-aware CV+ intervals and calibration checks
 src/applicability.py  trust scores, tiers, nearest-neighbour provenance
@@ -179,12 +215,15 @@ tests/             pytest suite, runs the real pipeline end to end
 pytest -q
 ```
 
-42 tests, including an end-to-end run of prepare/qualify/certify/screen
-on the bundled dataset and a subprocess test of the CLI artifact round
-trip.
+51 tests, including an end-to-end run of prepare/qualify/certify/screen
+on the bundled dataset, the dataset ingest from the source spreadsheet,
+and a subprocess test of the CLI artifact round trip.
 
 ## References
 
+- Fan, Chen, Steingrimsson, Xiong, Li, Liaw. Dataset for Fracture and
+  Impact Toughness of High-Entropy Alloys. Scientific Data 10, 37
+  (2023). Data: Materials Cloud, doi:10.24435/materialscloud:d6-pf.
 - Barber, Candes, Ramdas, Tibshirani. Predictive inference with the
   jackknife+. Annals of Statistics 49(1), 2021.
 - Takeuchi, Inoue. Classification of bulk metallic glasses by atomic

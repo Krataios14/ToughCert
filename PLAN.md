@@ -31,12 +31,20 @@ scoring, provenance and test planning. See README for the full picture.
 
 - Mondrian (per-tier) conformal calibration, so tier B/C rows get their
   own wider quantiles instead of one pooled residual distribution.
-- Separate the toughness measure type (K_IC vs K_Q vs K_JIC) into a
-  category once the source data records it reliably.
-- Grow the dataset. Every added publication group improves both the
-  model and the strength of the calibration evidence.
+- The source spreadsheet's impact toughness and Charpy impact energy
+  sheets (14 + 78 records, multiple temperatures) are downloaded but
+  not yet modeled; a companion impact-energy model or a
+  Charpy-to-toughness correlation feature is the obvious next use.
+- Grow the dataset further: NIMS data sheets and the DTIC plane strain
+  K_IC handbook (AD-773673) exist for steels but are scanned PDFs and
+  need careful manual extraction, not scraping.
 - Optional: conformalized quantile regression (CQR) for adaptive
   interval widths once there is enough data to fit quantile models.
+
+Done since last revision: dataset rebuilt from the Fan et al. (2023)
+source spreadsheet via src/ingest_fan2023.py (162 records, +16 over
+the old CSVs), with the toughness measure type (K_IC/K_Q/J-converted)
+now a model feature and measurement uncertainty kept as metadata.
 
 ## Constraints
 
