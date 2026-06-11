@@ -6,6 +6,9 @@ scipy
 pyyaml
 joblib
 
+# Ingest (reads the Fan 2023 source spreadsheet)
+openpyxl
+
 # Modeling
 torch
 

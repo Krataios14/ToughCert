@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ftqs"
+version = "0.2.0"
+description = "Fracture toughness qualification suite"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "scipy",
+    "pyyaml",
+    "joblib",
+    "matplotlib",
+    "openpyxl",
+]
+
+[project.optional-dependencies]
+nn = ["torch"]
+dev = ["pytest"]
+
+[project.scripts]
+ftqs = "src.cli:main"
+
+[tool.setuptools]
+# The import name stays 'src' for backward compatibility: existing
+# imports, 'python -m src.*' invocations and pickled artifacts
+# (e.g. src.qualify.SkModelFactory) all reference it.
+packages = ["src"]
