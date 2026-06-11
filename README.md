@@ -1,25 +1,15 @@
-# ToughCert
+# Fracture Toughness Qualification Suite (FTQS)
 
 Fracture toughness prediction for steels and high entropy alloys, with
 prediction intervals that carry a finite-sample statistical guarantee,
 an applicability domain check on every prediction, and provenance back
 to the source publication for every number the model produces.
 
-This started as a plain regression pipeline (predict K_IC from
-composition, processing and basic mechanical properties). The problem
-with a point estimate is that nobody designing hardware can use one. A
-valid plane-strain fracture toughness test per ASTM E399 or E1820 costs
-real money per specimen, and design organisations certify against lower
-bounds (MMPDS A- and B-basis values), not against means. So the project
-was rebuilt around the question an engineer actually asks: what is the
-lowest toughness I should reasonably expect from this material, how
-sure are we, and which physical tests should we pay for next.
-
 ## What it does
 
 Given a table of materials (composition string, condition, phase, grain
 size, test temperature, whatever mechanical data is available, all
-columns optional except some way to identify the material), ToughCert
+columns optional except some way to identify the material), FTQS
 produces for each row:
 
 - a point estimate of fracture toughness (MPa m^0.5)
@@ -44,7 +34,7 @@ The training data is mined from publications. Specimens from the same
 paper share a lab, a melt and a test method, so rows are clustered, not
 independent. If you calibrate conformal residuals with random row
 splits, information leaks across the split and the intervals come out
-too narrow for genuinely new alloys. ToughCert assigns calibration
+too narrow for genuinely new alloys. FTQS assigns calibration
 folds at the level of publication plus composition, which is the level
 at which a new query is actually new. As far as we know no other
 materials property tool does this.

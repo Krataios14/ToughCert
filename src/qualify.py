@@ -236,7 +236,7 @@ def qualify_from_config(cfg: Dict) -> str:
     )
 
     model_card = {
-        "tool": "ToughCert",
+        "tool": "Fracture Toughness Qualification Suite (FTQS)",
         "created": timestamp(),
         "training_data": {
             "path": data_cfg["train_csv"],

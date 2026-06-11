@@ -73,7 +73,7 @@ def test_report_renders(pipeline):
     out, blocks = certify_dataframe(unseen_df, run)
     path = render_report(str(tmp / "report.html"), out, run["model_card"], blocks)
     text = Path(path).read_text(encoding="utf-8")
-    assert "ToughCert" in text
+    assert "FTQS" in text
     assert "data:image/png;base64," in text
     assert "Intended use" in text
     assert len(text) > 20000  # embedded figures present
