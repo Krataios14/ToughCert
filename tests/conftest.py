@@ -14,16 +14,19 @@ TARGET = "fracture_toughness_mpa_m0_5"
 def feature_lists(df: pd.DataFrame):
     from src.prepare_data import METADATA_COLS
 
+    meta = [c for c in METADATA_COLS if c in df.columns]
     num = [
         c
         for c in df.columns
-        if c.startswith("elem_")
-        or c.startswith("phys_")
-        or any(x in c for x in ["_um", "_g_cm3", "_gpa", "_mpa", "_percent", "_k"])
+        if c not in meta
+        and (
+            c.startswith("elem_")
+            or c.startswith("phys_")
+            or any(x in c for x in ["_um", "_g_cm3", "_gpa", "_mpa", "_percent", "_k"])
+        )
     ]
     if TARGET in num:
         num.remove(TARGET)
-    meta = [c for c in METADATA_COLS if c in df.columns]
     cat = [c for c in df.columns if c not in num + meta + [TARGET]]
     return sorted(num), sorted(cat)
 

@@ -24,8 +24,9 @@ def test_prepare_dataframe_parses_composition():
     assert "material_condition" in out.columns
     assert "fracture_toughness_mpa_m0_5" in out.columns
     assert len(elem_cols) == 3
-    # Raw composition string retained as provenance metadata
+    # Raw composition string retained as provenance metadata, as text
     assert "composition_at_percent" in out.columns
+    assert out.loc[0, "composition_at_percent"] == "Al10.0-Cr20.0-Fe70.0"
     # Physics descriptors appended
     assert "phys_smix_r" in phys_cols
     assert out.loc[0, "phys_vec"] > 0

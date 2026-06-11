@@ -1,7 +1,8 @@
-# Core
+﻿# Core
 numpy
 pandas
 scikit-learn
+scipy
 pyyaml
 joblib
 

@@ -61,8 +61,10 @@ def prepare_dataframe(
         if col in df.columns:
             df = df.drop(columns=[col])
 
-    # Coerce known numeric columns to numeric
+    # Coerce known numeric columns to numeric (metadata stays as text)
     for col in df.columns:
+        if col in METADATA_COLS:
+            continue
         if col == target_col:
             df[col] = pd.to_numeric(df[col], errors="coerce")
         elif col.startswith("elem_") or col.startswith("phys_"):
@@ -106,9 +108,12 @@ def main() -> None:
     num_features = [
         c
         for c in train_df.columns
-        if c.startswith("elem_")
-        or c.startswith("phys_")
-        or any(x in c for x in ["_um", "_g_cm3", "_gpa", "_mpa", "_percent", "_k"])
+        if c not in METADATA_COLS
+        and (
+            c.startswith("elem_")
+            or c.startswith("phys_")
+            or any(x in c for x in ["_um", "_g_cm3", "_gpa", "_mpa", "_percent", "_k"])
+        )
     ]
     if args.target in num_features:
         num_features.remove(args.target)

@@ -49,6 +49,12 @@ model:
       - random_forest
       - ridge
 
+# Settings for the qualification pipeline (src.qualify / src.certify)
+conformal:
+  n_folds: 8          # group-aware CV+ folds
+  eval_splits: 8      # held-out-group calibration repetitions
+  trust_neighbors: 5  # kNN size for the applicability domain
+
 train:
   batch_size: 256
   max_epochs: 200
