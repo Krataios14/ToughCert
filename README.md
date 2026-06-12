@@ -1,5 +1,7 @@
 # Fracture Toughness Qualification Suite (FTQS)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20669425.svg)](https://doi.org/10.5281/zenodo.20669425)
+
 Fracture toughness prediction for steels and high entropy alloys, with
 prediction intervals that carry a finite-sample statistical guarantee,
 an applicability domain check on every prediction, and provenance back
@@ -274,7 +276,9 @@ Code is MIT licensed. The bundled dataset is redistributed from the
 Materials Cloud record of Fan et al. (2023) under CC-BY 4.0; cite the
 original authors when using the data. Citation metadata for the
 software is in `CITATION.cff` (GitHub renders it under "Cite this
-repository").
+repository"). Releases are archived on Zenodo; cite the software via
+doi:10.5281/zenodo.20669425, which always resolves to the latest
+version.
 
 ## References
 

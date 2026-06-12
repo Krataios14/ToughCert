@@ -11,6 +11,10 @@ version: 0.2.1
 date-released: "2026-06-12"
 license: MIT
 repository-code: "https://github.com/Krataios14/FTQS"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.20669425
+    description: Concept DOI for all versions; resolves to the latest release.
 abstract: >-
   Fracture toughness prediction for steels and high entropy alloys with
   finite-sample conformal prediction intervals (group-aware CV+ with
