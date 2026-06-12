@@ -1,0 +1,37 @@
+{
+    "title": "FTQS: Fracture Toughness Qualification Suite",
+    "upload_type": "software",
+    "license": "MIT",
+    "creators": [
+        {
+            "name": "Marinopoulos, Alexandros"
+        }
+    ],
+    "description": "Fracture toughness prediction for steels and high entropy alloys with finite-sample conformal prediction intervals (group-aware CV+ with pre-committed Mondrian calibration by phase class), applicability domain trust scoring with literature provenance, MMPDS-style screening allowables, diversity-aware test prioritization, and a self-auditing model card with selection-inclusive held-out-group calibration evidence. The bundled dataset is redistributed from the Materials Cloud record of Fan et al. (2023) under CC-BY 4.0.",
+    "keywords": [
+        "fracture toughness",
+        "high entropy alloys",
+        "conformal prediction",
+        "uncertainty quantification",
+        "materials informatics",
+        "design allowables"
+    ],
+    "related_identifiers": [
+        {
+            "relation": "isDerivedFrom",
+            "identifier": "10.24435/materialscloud:d6-pf",
+            "scheme": "doi",
+            "resource_type": "dataset"
+        },
+        {
+            "relation": "cites",
+            "identifier": "10.1038/s41597-022-01911-4",
+            "scheme": "doi"
+        },
+        {
+            "relation": "cites",
+            "identifier": "10.1214/20-AOS1965",
+            "scheme": "doi"
+        }
+    ]
+}

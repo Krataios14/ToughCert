@@ -142,6 +142,8 @@ python -m venv .venv
 pip install -r requirements.txt
 # or, as an installed package with the `ftqs` command (torch optional):
 # pip install -e .
+# or straight from GitHub:
+# pip install git+https://github.com/Krataios14/FTQS
 
 # 1. featurize the raw tables (writes data/processed_*.csv and data/schema.json)
 python -m src.prepare_data ^
@@ -265,6 +267,14 @@ pytest -q
 on the bundled dataset, the dataset ingest from the source spreadsheet,
 and a subprocess test of the CLI artifact round trip. CI runs the suite
 on every push.
+
+## License and citation
+
+Code is MIT licensed. The bundled dataset is redistributed from the
+Materials Cloud record of Fan et al. (2023) under CC-BY 4.0; cite the
+original authors when using the data. Citation metadata for the
+software is in `CITATION.cff` (GitHub renders it under "Cite this
+repository").
 
 ## References
 

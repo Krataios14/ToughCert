@@ -6,6 +6,8 @@ build-backend = "setuptools.build_meta"
 name = "ftqs"
 version = "0.2.0"
 description = "Fracture toughness qualification suite"
+authors = [{ name = "Alexandros Marinopoulos" }]
+license = { text = "MIT" }
 requires-python = ">=3.10"
 dependencies = [
     "numpy",
