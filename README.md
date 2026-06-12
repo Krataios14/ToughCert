@@ -270,15 +270,12 @@ on the bundled dataset, the dataset ingest from the source spreadsheet,
 and a subprocess test of the CLI artifact round trip. CI runs the suite
 on every push.
 
-## License and citation
+## Citing
 
-Code is MIT licensed. The bundled dataset is redistributed from the
-Materials Cloud record of Fan et al. (2023) under CC-BY 4.0; cite the
-original authors when using the data. Citation metadata for the
-software is in `CITATION.cff` (GitHub renders it under "Cite this
-repository"). Releases are archived on Zenodo; cite the software via
-doi:10.5281/zenodo.20669425, which always resolves to the latest
-version.
+Cite the software via doi:10.5281/zenodo.20669425 (each release is
+archived on Zenodo). When using the bundled data, also cite Fan et
+al. (2023), first entry below. Code is MIT licensed; the dataset is
+CC-BY 4.0, see NOTICE.
 
 ## References
 

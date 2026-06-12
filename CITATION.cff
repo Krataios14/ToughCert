@@ -1,7 +1,8 @@
 cff-version: 1.2.0
 message: >-
   If you use FTQS, please cite it using this metadata. When using the
-  bundled fracture toughness data, also cite Fan et al. (2023).
+  bundled fracture toughness data, also cite Fan et al., Scientific
+  Data 10 (2023), doi:10.1038/s41597-022-01911-4.
 title: "FTQS: Fracture Toughness Qualification Suite"
 type: software
 authors:
@@ -10,11 +11,8 @@ authors:
 version: 0.2.1
 date-released: "2026-06-12"
 license: MIT
+doi: 10.5281/zenodo.20669425
 repository-code: "https://github.com/Krataios14/FTQS"
-identifiers:
-  - type: doi
-    value: 10.5281/zenodo.20669425
-    description: Concept DOI for all versions; resolves to the latest release.
 abstract: >-
   Fracture toughness prediction for steels and high entropy alloys with
   finite-sample conformal prediction intervals (group-aware CV+ with
@@ -30,53 +28,3 @@ keywords:
   - uncertainty quantification
   - materials informatics
   - design allowables
-references:
-  - type: article
-    title: Dataset for Fracture and Impact Toughness of High-Entropy Alloys
-    authors:
-      - family-names: Fan
-        given-names: Xuesong
-      - family-names: Chen
-        given-names: Shiyi
-      - family-names: Steingrimsson
-        given-names: Baldur
-      - family-names: Xiong
-        given-names: Qingang
-      - family-names: Li
-        given-names: Weidong
-      - family-names: Liaw
-        given-names: Peter K.
-    journal: Scientific Data
-    volume: 10
-    year: 2023
-    doi: 10.1038/s41597-022-01911-4
-  - type: data
-    title: Dataset for fracture and impact toughness of high-entropy alloys (Materials Cloud)
-    authors:
-      - family-names: Fan
-        given-names: Xuesong
-      - family-names: Chen
-        given-names: Shiyi
-      - family-names: Steingrimsson
-        given-names: Baldur
-      - family-names: Li
-        given-names: Weidong
-      - family-names: Liaw
-        given-names: Peter K.
-    year: 2022
-    doi: 10.24435/materialscloud:d6-pf
-  - type: article
-    title: Predictive inference with the jackknife+
-    authors:
-      - family-names: Barber
-        given-names: Rina Foygel
-      - family-names: Candes
-        given-names: Emmanuel J.
-      - family-names: Ramdas
-        given-names: Aaditya
-      - family-names: Tibshirani
-        given-names: Ryan J.
-    journal: Annals of Statistics
-    volume: 49
-    year: 2021
-    doi: 10.1214/20-AOS1965
