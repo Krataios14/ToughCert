@@ -14,7 +14,6 @@ torch
 
 # Visualization
 matplotlib
-seaborn
 
 # Testing
 pytest

@@ -7,7 +7,7 @@ from typing import Dict
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import seaborn as sns
+from scipy import stats
 
 from src.config import load_config
 from src.utils import ensure_dir
@@ -44,7 +44,7 @@ def _plot_parity(run_dir: str, figures_dir: str) -> None:
     df = pd.read_csv(preds_path)
 
     plt.figure(figsize=(5, 5))
-    sns.scatterplot(x="y_true", y="y_pred", data=df, s=20, alpha=0.7)
+    plt.scatter(df["y_true"], df["y_pred"], s=20, alpha=0.7)
     lims = [min(df.min()), max(df.max())]
     plt.plot(lims, lims, "k--", linewidth=1)
     plt.xlabel("True")
@@ -62,8 +62,15 @@ def _plot_residuals(run_dir: str, figures_dir: str) -> None:
     df = pd.read_csv(preds_path)
     df["residual"] = df["y_true"] - df["y_pred"]
 
+    residuals = df["residual"].dropna().to_numpy()
     plt.figure(figsize=(6, 4))
-    sns.histplot(df["residual"], bins=30, kde=True)
+    plt.hist(residuals, bins=30, alpha=0.8)
+    if len(residuals) > 1 and np.std(residuals) > 0:
+        grid = np.linspace(residuals.min(), residuals.max(), 200)
+        kde = stats.gaussian_kde(residuals)
+        # Scale the density to the histogram's count axis
+        bin_width = (residuals.max() - residuals.min()) / 30 or 1.0
+        plt.plot(grid, kde(grid) * len(residuals) * bin_width, lw=1.5)
     plt.xlabel("Residual")
     plt.title("Residual Distribution")
     plt.tight_layout()
@@ -81,7 +88,8 @@ def _plot_permutation_importance(run_dir: str, figures_dir: str) -> None:
     df = pd.DataFrame(importances).head(20)
 
     plt.figure(figsize=(7, 5))
-    sns.barplot(x="mae_increase", y="feature", data=df, orient="h")
+    plt.barh(df["feature"], df["mae_increase"])
+    plt.gca().invert_yaxis()  # most important at the top
     plt.xlabel("MAE Increase (Permutation)")
     plt.ylabel("Feature")
     plt.title("Permutation Importance (Top 20)")
