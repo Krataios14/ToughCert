@@ -7,7 +7,7 @@ type: software
 authors:
   - family-names: Marinopoulos
     given-names: Alexandros
-version: 0.2.0
+version: 0.2.1
 date-released: "2026-06-12"
 license: MIT
 repository-code: "https://github.com/Krataios14/FTQS"
